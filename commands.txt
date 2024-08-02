@@ -1,0 +1,15 @@
+sudo kubectl create deployment nginx-deployment --image=nginx --replicas=1
+kubectl scale deployment/nginx-deployment --replicas=3
+kubectl get deployments
+kubectl get pods
+kubectl expose deployment nginx-deployment --port=80 --target-port=80 --type=ClusterIP
+kubectl get service nginx-deployment
+kubectl get pods -o wide
+kubectl exec -it nginx-deployment-6d6565499c-4vb82 -- curl http://10.42.0.16
+kubectl exec -it nginx-deployment-6d6565499c-4vb82 -- curl http://10.42.0.21
+kubectl exec -it nginx-deployment-6d6565499c-4vb82 -- curl http://10.43.54.250
+kubectl delete pods -l app=nginx-deployment
+kubectl get pods -l app=nginx-deployment
+kubectl exec -it nginx-deployment-6d6565499c-75wgq /bin/bash
+kill 1
+kubectl get pods -l app=nginx-deployment
